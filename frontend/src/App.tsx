@@ -53,7 +53,7 @@ function App() {
     setIsSending(true);
     setStatusMessage('Sending email...');
     try {
-      const response = await axios.post('https://send-anonymous-mail.onrender.com/send-email', formData);
+      const response = await axios.post('https://send-anonymous-mail.onrender.com/api/v1/send-email', formData);
       console.log(response)
       setFormData({
         to: '',
