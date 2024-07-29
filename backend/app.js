@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({ origin: 'https://send-anonymous-mail.vercel.app' }));
 
 app.post('/send-email', async (req, res) => {
     const { to, subject, text } = req.body;
