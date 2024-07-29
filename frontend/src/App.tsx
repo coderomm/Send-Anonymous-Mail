@@ -1,18 +1,30 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 
+interface FormData {
+  to: string;
+  subject: string;
+  text: string;
+}
+
+interface Errors {
+  to?: string;
+  subject?: string;
+  text?: string;
+}
+
 function App() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     to: '',
     subject: '',
     text: '',
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Errors>({});
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -24,14 +36,14 @@ function App() {
   };
 
   const validateForm = () => {
-    let errors = {};
+    let errors: Errors = {};
     if (!formData.to) errors.to = 'Recipient email is required';
     if (!formData.subject) errors.subject = 'Subject is required';
     if (!formData.text) errors.text = 'Email text is required';
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -48,15 +60,15 @@ function App() {
         subject: '',
         text: '',
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending email:', error);
       setStatusMessage(`Failed to send email: ${error.response?.data?.message || error.message}`);
     } finally {
       setIsSending(false);
       setStatusMessage('Email sent successfully!');
-      setTimeout(()=>{
+      setTimeout(() => {
         setStatusMessage('');
-      },[2000])
+      }, 2000)
     }
   };
 

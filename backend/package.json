@@ -4,7 +4,9 @@
   "description": "Send Anonymous Mails by Om Sharma",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "dev": "ts-node-dev src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -14,5 +16,16 @@
     "express": "^4.19.2",
     "mongoose": "^8.5.1",
     "nodemailer": "^6.9.14"
-  }
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^6.4.15",
+    "typescript": "^5.5.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
